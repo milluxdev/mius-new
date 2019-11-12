@@ -7,7 +7,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service electron:build",
     "build:win": "vue-cli-service electron:build -w",
-    "build:linux": "vue-cli-service electron:build -l",
+    "build:linux": "vue-cli-service electron:build -linux",
     "build:mac": "vue-cli-service electron:build -m",
     "build:web": "vue-cli-service build",
     "lint": "vue-cli-service lint",

@@ -55,8 +55,14 @@ module.exports = {
           multiLanguageInstaller: true
         },
         linux: {
-          icon: 'icons/icon.icns',
-          target: ["AppImage"],
+          icon: 'icons',
+          target: [{
+            target: "AppImage",
+            arch: [
+              "x64",
+              "ia32"
+            ]
+          }],
           maintainer: 'Millux',
           category: 'Game',
           executableName: 'Mius',
