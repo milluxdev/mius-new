@@ -54,6 +54,4 @@ deploy:
   - Mius-$TRAVIS_TAG.dmg
   skip_cleanup: true
   overwrite: true
-  on:
-    tags: true
   api-key: $Millux
