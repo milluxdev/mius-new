@@ -67,7 +67,6 @@
         </q-item-section>
         <q-item-section side>
           <div class="version-btn">
-            <q-btn dense label="检测更新" @click="test" />
           </div>
         </q-item-section>
       </q-item>
