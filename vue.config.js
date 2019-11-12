@@ -30,7 +30,8 @@ module.exports = {
               y: 150,
               type: 'file'
             }
-          ]
+          ],
+          artifactName: "${name}-dmg.${ext}"
         },
         mac: {
           icon: 'icons/icon.icns'

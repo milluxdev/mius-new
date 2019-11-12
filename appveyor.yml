@@ -1,0 +1,51 @@
+version: 1.0.{build}
+
+branches:
+  only:
+    - master
+
+image: Visual Studio 2017
+platform:
+  - x64
+environment:
+  GH_TOKEN:
+    secure: QApTMXYx9yadrrlsoagOyHV1ZSJtCa60hCqKlkqB9OymwNuBB1m0cVdTllr+uYMd
+
+cache:
+  - node_modules
+  - '%APPDATA%\npm-cache'
+  - '%USERPROFILE%\.electron'
+  - '%USERPROFILE%\AppData\Local\Yarn\cache'
+
+init:
+  - git config --global core.autocrlf input
+
+install:
+  - ps: Install-Product node 11 x64
+  - git reset --hard HEAD
+  - yarn
+  - node --version
+
+build_script:
+  - yarn build:win
+
+after_build:
+  - cd build
+  - cp -fr *.exe Mius.exe
+  - cp -fr ./Mius.exe ../Mius-Setup-%APPVEYOR_REPO_TAG_NAME%.exe
+  - cd ..
+
+artifacts:
+  - path: Mius-Setup-$(APPVEYOR_REPO_TAG_NAME).exe
+    name: Mius-Setup
+
+deploy:
+  description: 'Mius build commit $(APPVEYOR_REPO_COMMIT) $(APPVEYOR_REPO_COMMIT_TIMESTAMP)'
+  provider: GitHub
+  force_update: true
+  auth_token:
+    secure: QApTMXYx9yadrrlsoagOyHV1ZSJtCa60hCqKlkqB9OymwNuBB1m0cVdTllr+uYMd
+  on:
+    appveyor_repo_tag: true 
+
+test: off
