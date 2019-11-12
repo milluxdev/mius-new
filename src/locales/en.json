@@ -1,0 +1,19 @@
+{
+  "languages": "Language",
+  "setting": "Setting",
+  "close": "Close",
+  "minimize": "Minimize",
+  "settingMsg": "Updated Setting",
+  "tips": "Tips",
+  "tipsMsg": "这个Server没有配置YGOPRO，是否配置YGOPRO？",
+  "ygoDialogTitle": "Setting YGOPRO",
+  "setOk": "Setting YGOPRO Success！",
+  "setError": "Setting YGOPRO Error",
+  "usernameMsg": "Please Enter Username",
+  "importYgoLabel": "Server Import YGOPro",
+  "table": {
+    "id": "ID",
+    "roomname": "Room Name",
+    "noDataLabel": "Nothing"
+  }
+}

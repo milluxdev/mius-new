@@ -1,0 +1,19 @@
+{
+    "languages": "语言",
+    "setting": "设置",
+    "close": "关闭",
+    "minimize": "最小化",
+    "settingMsg": "正在应用设置",
+    "tips": "提示",
+    "tipsMsg": "这个服务器没有导入YGOPro，是否现在导入YGOPro？",
+    "ygoDialogTitle": "导入YGOPro",
+    "setOk": "导入YGOPro成功！",
+    "setError": "导入YGOPro失败！",
+    "usernameMsg": "请输入用户名",
+    "importYgoLabel": "服务器导入YGOPro",
+    "table": {
+        "id": "房间ID",
+        "roomname": "房间名称",
+        "noDataLabel": "服务器没有房间，快去创建个房间吧"
+    }
+}
