@@ -1,5 +1,13 @@
 matrix:
   include:
+    - os: osx
+      osx_image: xcode10.2
+      language: node_js
+      node_js: "12"
+      env:
+        - ELECTRON_CACHE=$HOME/.cache/electron
+        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+
     - os: linux
       sudo: required
       dist: bionic
@@ -27,10 +35,25 @@ after_success:
   - cd build
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      ls -l
+      cp Mius-i386.AppImage Mius-$TRAVIS_TAG-i386.AppImage
+      cp Mius-i386.AppImage ../Mius-$TRAVIS_TAG-i386.AppImage
+      cp Mius-x86_64.AppImage Mius-$TRAVIS_TAG-x86_64.AppImage
+      cp Mius-x86_64.AppImage ../Mius-$TRAVIS_TAG-x86_64.AppImage
     else
-      ls -l
+      cp Mius.dmg Mius-$TRAVIS_TAG.dmg
+      cp Mius.dmg ../Mius-$TRAVIS_TAG.dmg
     fi
 branches:
   only:
   - master
+deploy:
+  provider: releases
+  file:
+  - Mius-$TRAVIS_TAG-i386.AppImage
+  - Mius-$TRAVIS_TAG-x86_64.AppImage
+  - Mius-$TRAVIS_TAG.dmg
+  skip_cleanup: true
+  overwrite: true
+  on:
+    tags: true
+  api-key: $Millux

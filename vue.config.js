@@ -31,7 +31,7 @@ module.exports = {
               type: 'file'
             }
           ],
-          artifactName: "${name}-${arch}.${ext}"
+          artifactName: "${name}.${ext}"
         },
         mac: {
           icon: 'icons/icon.icns'
