@@ -61,7 +61,7 @@
         <q-item-section>
           <div class="version">
             <q-item-label>
-              <span>当前版本V1.1.5 </span>
+              <span>当前版本：v{{version}}</span>
             </q-item-label>
           </div>
         </q-item-section>
@@ -81,20 +81,10 @@
     name: "Side",
     data() {
       return {
-        link: "Serve7210",
+        link: "Serve7210"
       };
     },
     methods: {
-      test() {
-        let currentWindow = remote.getCurrentWindow()
-        if (!currentWindow.isMaximized()) {
-          console.log(false)
-          currentWindow.maximize()
-        } else {
-          console.log(true)
-          currentWindow.unmaximize()
-        }
-      },
       menuClick(index) {
         this.link = index;
         localStorage.setItem("router", index);
@@ -102,6 +92,9 @@
           name: index
         });
       }
+    },
+    created() {
+      // this.version = remote.app.getVersion()
     },
     computed: {
       thumbStyle() {
@@ -112,6 +105,9 @@
           width: "8px",
           opacity: 0.5
         };
+      },
+      version:function () {
+        return remote.app.getVersion()
       }
     }
   };
