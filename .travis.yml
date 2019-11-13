@@ -53,5 +53,7 @@ deploy:
   - Mius-$TRAVIS_OS_NAME-x86_64.AppImage
   - Mius-$TRAVIS_OS_NAME.dmg
   skip_cleanup: true
+  on:
+    branch: master
   overwrite: true
   api-key: $Millux
