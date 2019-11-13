@@ -45,5 +45,6 @@ deploy:
     secure: QApTMXYx9yadrrlsoagOyHV1ZSJtCa60hCqKlkqB9OymwNuBB1m0cVdTllr+uYMd
   on:
     branch: master 
+    APPVEYOR_REPO_TAG: true
 
 test: off
