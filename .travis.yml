@@ -43,9 +43,6 @@ after_success:
       cp Mius.dmg mius-$TRAVIS_OS_NAME.dmg
       cp Mius.dmg ../mius-$TRAVIS_OS_NAME.dmg
     fi
-branches:
-  only:
-  - master
 deploy:
   provider: releases
   file:
