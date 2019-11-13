@@ -21,7 +21,7 @@ init:
   - git config --global core.autocrlf input
 
 install:
-  - ps: Install-Product node 11 x64
+  - ps: Install-Product node 12 x64
   - git reset --hard HEAD
   - yarn
   - node --version
@@ -31,21 +31,19 @@ build_script:
 
 after_build:
   - cd build
-  - cp -fr *.exe Mius.exe
-  - cp -fr ./Mius.exe ../Mius-Setup-%APPVEYOR_REPO_TAG_NAME%.exe
+  - cp -fr ./Mius-Setup.exe ../mius-win-setup.exe
   - cd ..
 
 artifacts:
-  - path: Mius-Setup-$(APPVEYOR_REPO_TAG_NAME).exe
-    name: Mius-Setup
+  - path: mius-win-setup.exe
+    name: mius-win-setup
 
 deploy:
-  description: 'Mius build commit $(APPVEYOR_REPO_COMMIT) $(APPVEYOR_REPO_COMMIT_TIMESTAMP)'
   provider: GitHub
   force_update: true
   auth_token:
     secure: QApTMXYx9yadrrlsoagOyHV1ZSJtCa60hCqKlkqB9OymwNuBB1m0cVdTllr+uYMd
   on:
-    appveyor_repo_tag: true 
+    branch: master 
 
 test: off
