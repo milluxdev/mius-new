@@ -10,7 +10,7 @@
   "setOk": "Setting YGOPRO Success！",
   "setError": "Setting YGOPRO Error",
   "usernameMsg": "Please Enter Username",
-  "importYgoLabel": "Server Import YGOPro",
+  "importYgoLabel": "Import YGOPro",
   "table": {
     "id": "ID",
     "roomname": "Room Name",

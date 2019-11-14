@@ -34,25 +34,11 @@ module.exports = {
           artifactName: "${name}.${ext}"
         },
         mac: {
-          icon: 'icons/icon.icns'
+          icon: 'icons/icons/icon.icns'
         },
         win: {
-          icon: 'icons/icon.ico',
-          target: [{
-            target: "nsis",
-            arch: [
-              "x64",
-              "ia32"
-            ]
-          }],
+          icon: 'icons/icons/icon.ico',
           artifactName: "${name}-Setup.${ext}"
-        },
-        nsis: {
-          oneClick: false,
-          allowToChangeInstallationDirectory: true,
-          menuCategory: "Mius",
-          installerLanguages: ["en_US", "zh_CN"],
-          multiLanguageInstaller: true
         },
         linux: {
           icon: 'icons',
@@ -68,7 +54,9 @@ module.exports = {
           executableName: 'Mius',
           artifactName: '${name}-${arch}.${ext}'
         }
-      }
+      },
+      mainProcessFile: 'src/app.js',
+      mainProcessWatch: ['src'],
     },
     quasar: {
       treeShake: true

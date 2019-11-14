@@ -43,7 +43,7 @@
   import {
     mapActions
   } from 'vuex';
-  import servers from "@/config/server";
+  import servers from "@/app/config/server";
   export default {
     name: "Server",
     props: ["name", "label"],

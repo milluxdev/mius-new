@@ -2,7 +2,7 @@
   <div class="title">
     <q-header reveal elevated class="bg-light-blue text-white">
       <q-toolbar class="bg-light-blue text-white">
-        <img src="@/assets/logo.png" height="30px" />
+        <img src="@/app/assets/logo.png" height="30px" />
         <q-toolbar-title>Mius</q-toolbar-title>
         <q-btn dense flat round icon="settings" size="12px" color="yellow" class="no-drag" @click="showSetting">
           <q-tooltip anchor="center left" self="center middle">{{ $t("setting") }}</q-tooltip>
@@ -58,6 +58,15 @@
               </q-btn-dropdown>
             </q-item-section>
           </q-item>
+          <q-item>
+            <q-item-section>
+              <div class="q-gutter-sm">
+                关闭主面板：
+                <q-radio v-model="shape" val="teal" label="最小化到系统托盘" color="teal" />
+                <q-radio v-model="shape" val="orange" label="退出Mius" color="orange" />
+              </div>
+            </q-item-section>
+          </q-item>
         </q-list>
       </q-card>
     </q-dialog>
@@ -67,7 +76,7 @@
   import {
     mapActions
   } from 'vuex';
-  import servers from "@/config/server";
+  import servers from "@/app/config/server";
   import path from "path";
   import {
     ipcRenderer as ipc
@@ -80,9 +89,10 @@
     name: "Title",
     data() {
       return {
+        shape: 'line',
         languages: [{
             isoName: "zh-hans",
-            nativeName: "中文"
+            nativeName: "简体中文"
           },
           {
             isoName: "en-us",
@@ -90,8 +100,7 @@
           }
         ],
         lang: this.$q.lang.isoName,
-        closeColor: "#ffffff",
-        settings: false
+        closeColor: "#ffffff"
       };
     },
     computed: {
@@ -111,7 +120,6 @@
         'showSettings',
       ]),
       showSetting() {
-        this.settings = true
         this.showSettings({
           value: true,
         })
@@ -155,6 +163,7 @@
         this.setting = false;
         this.showLoading();
         this.setLang(lang);
+        ipc.send('changeLanguages', lang)
       },
       close(clicktype) {
         ipc.send(clicktype);
@@ -182,19 +191,20 @@
         }, 1000);
       },
       setLang(lang) {
-        if (lang === "zh-hans") {
-          this.$i18n.locale = "cn";
-          localStorage.setItem("lang", "cn");
-        } else {
-          this.$i18n.locale = "en";
-          localStorage.setItem("lang", "en");
-        }
+        this.$i18n.locale = lang;
+        localStorage.setItem("lang", lang);
         import(`quasar/lang/${lang}`).then(lang => {
           this.$q.lang.set(lang.default);
         });
       }
     },
-    beforeDestroy() {
+    mounted() {
+      ipc.on('setting', (event, message) => {
+        console.log(message)
+        this.showSetting()
+      })
+    },
+    eforeDestroy() {
       if (this.timer !== void 0) {
         clearTimeout(this.timer);
         this.$q.loading.hide();
@@ -202,10 +212,11 @@
     },
     created() {
       let lang = "zh-hans";
-      if (localStorage.getItem("lang") == "en") {
-        lang = "en-us";
-      } else {
+      let locale = localStorage.getItem('locale') || remote.app.getLocale();
+      if (locale.startsWith('zh-')) {
         lang = "zh-hans";
+      } else {
+        lang = "en-us";
       }
       this.lang = lang;
       this.langOptions = this.languages.map(lang => ({
@@ -213,6 +224,7 @@
         value: lang.isoName
       }));
       this.setLang(lang);
+      ipc.send('changeLanguages', lang)
     }
   };
 </script>

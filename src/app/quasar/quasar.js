@@ -35,7 +35,14 @@ import {
   Loading,
   Notify,
   Dialog,
-  QBtnDropdown
+  QBtnDropdown,
+  QRadio,
+  QSplitter,
+  QTabs,
+  QTab,
+  QRouteTab,
+  QTabPanels,
+  QTabPanel
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -71,7 +78,14 @@ Vue.use(Quasar, {
     QCardSection,
     QCardActions,
     QAvatar,
-    QBtnDropdown
+    QBtnDropdown,
+    QRadio,
+    QSplitter,
+    QTabs,
+    QTab,
+    QRouteTab,
+    QTabPanels,
+    QTabPanel
   },
   directives: {
     ClosePopup

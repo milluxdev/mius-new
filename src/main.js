@@ -1,12 +1,12 @@
 import Vue from 'vue'
-import App from './App.vue'
-import './quasar/quasar'
-import router from './router'
-import i18n from './i18n'
+import App from './app/App.vue'
+import './app/quasar/quasar'
+import router from './app/router'
+import i18n from './app/i18n'
 // import sqlite3 from 'sqlite3'
-import ygo from './ygopro'
+import ygo from './app/ygopro'
 import axios from 'axios'
-import store from './store'
+import store from './app/store'
 
 Vue.config.productionTip = false
 

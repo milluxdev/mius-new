@@ -5,8 +5,10 @@ import {
   protocol,
   BrowserWindow,
   ipcMain,
-  Menu
+  Menu,
+  Tray
 } from 'electron'
+import path from 'path'
 import {
   createProtocol,
 } from 'vue-cli-plugin-electron-builder/lib'
@@ -42,7 +44,6 @@ function createWindow() {
   })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
-    console.log(process.env.WEBPACK_DEV_SERVER_URL)
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
     if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
@@ -59,6 +60,67 @@ function createWindow() {
   })
 }
 
+let appTray;
+
+function winShow() {
+  if (!win.isVisible()) {
+    win.show();
+  } else {
+    win.focus();
+  }
+}
+
+function winShowOrMinimize() {
+  if (win.isVisible()) {
+    win.hide();
+  } else {
+    win.show();
+  }
+}
+
+const chineseMenu = Menu.buildFromTemplate([{
+  label: '显示/最小化窗口',
+  type: 'normal',
+  click: winShowOrMinimize
+}, {
+  label: '设置',
+  type: 'normal',
+  click: settingClick
+}, {
+  type: 'separator',
+}, {
+  label: '退出',
+  click: app.quit
+}]);
+const englishMenu = Menu.buildFromTemplate([{
+  label: 'Show or Minimize',
+  type: 'normal',
+  click: winShowOrMinimize
+}, {
+  label: 'Setting',
+  type: 'normal',
+  click: settingClick
+}, {
+  type: 'separator',
+}, {
+  label: 'Quit',
+  click: app.quit
+}]);
+
+function createTray() {
+  appTray = new Tray(path.join(__static, 'icon.ico'));
+  appTray.on('click', (event) => {
+    winShow()
+  });
+  appTray.setToolTip('Mius');
+  appTray.setContextMenu(chineseMenu);
+}
+
+function settingClick() {
+  win.webContents.send('setting', 'setting')
+  winShow()
+}
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
@@ -73,9 +135,11 @@ app.on('activate', () => {
 
 app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
-    // Install Vue Devtools
+    console.log("Development")
+    console.log(__static)
   }
   createWindow()
+  createTray()
 })
 
 if (isDevelopment) {
@@ -92,4 +156,11 @@ if (isDevelopment) {
   }
 }
 ipcMain.on('close', () => win.close());
-ipcMain.on('min', () => win.minimize());
+ipcMain.on('min', () => win.hide());
+ipcMain.on('changeLanguages', (event, message) => {
+  if ('zh-hans' == message) {
+    appTray.setContextMenu(chineseMenu);
+  } else {
+    appTray.setContextMenu(englishMenu);
+  }
+})
