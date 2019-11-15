@@ -38,7 +38,21 @@ module.exports = {
         },
         win: {
           icon: 'icons/icons/icon.ico',
+          target: [{
+            target: "nsis",
+            arch: [
+              "x64",
+              "ia32"
+            ]
+          }],
           artifactName: "${name}-Setup.${ext}"
+        },
+        nsis: {
+          oneClick: false,
+          allowToChangeInstallationDirectory: true,
+          menuCategory: "Mius",
+          installerLanguages: ["en_US", "zh_CN"],
+          multiLanguageInstaller: true
         },
         linux: {
           icon: 'icons',

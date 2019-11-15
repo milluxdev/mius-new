@@ -10,7 +10,7 @@ import store from './app/store'
 
 Vue.config.productionTip = false
 
-localStorage.setItem("router", "Serve7210");
+localStorage.setItem("router", "Server7210");
 
 // Vue.prototype.$sqlite = sqlite3
 Vue.prototype.$ygo = ygo

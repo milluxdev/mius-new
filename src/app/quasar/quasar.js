@@ -42,7 +42,8 @@ import {
   QTab,
   QRouteTab,
   QTabPanels,
-  QTabPanel
+  QTabPanel,
+  QForm
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -85,7 +86,8 @@ Vue.use(Quasar, {
     QTab,
     QRouteTab,
     QTabPanels,
-    QTabPanel
+    QTabPanel,
+    QForm
   },
   directives: {
     ClosePopup

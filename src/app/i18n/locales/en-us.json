@@ -3,6 +3,7 @@
   "setting": "Setting",
   "close": "Close",
   "minimize": "Minimize",
+  "maximize": "Maximize",
   "settingMsg": "Updated Setting",
   "tips": "Tips",
   "tipsMsg": "这个Server没有配置YGOPRO，是否配置YGOPRO？",

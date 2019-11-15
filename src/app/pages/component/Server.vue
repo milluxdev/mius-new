@@ -11,7 +11,8 @@
         <q-select outlined v-model="gametype" :options="options" class="server-from server-select">
           <template v-slot:before>游戏模式：</template>
         </q-select>
-        <q-btn color="white" text-color="black" label="创建房间" class="server-from server-btn" @click="createRoom" />
+        <q-btn color="white" text-color="black" label="创建房间" class="server-from server-btn"
+          @click="joinGame('create')" />
       </q-toolbar>
     </div>
     <div class="server-main">
@@ -26,6 +27,13 @@
               {{ props.row.roomname }}
             </q-td>
             <q-td key="users" :props="props" style="width: 150px;">
+              <span v-for="n in props.row.users.length" :key="n">
+                <q-icon v-if="isGamer(props.row.users[n-1])" name="person" size="sm" class="text-primary">
+                  <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                    {{props.row.users[n-1].name}}
+                  </q-tooltip>
+                </q-icon>
+              </span>
             </q-td>
             <q-td key="status" :props="props" style="width: 150px;">
               {{ props.row.istart }}
@@ -54,9 +62,9 @@
         db: null,
         server: null,
         pagination: {
-          rowsPerPage: 20
+          rowsPerPage: 10
         },
-        pageOptions: [20],
+        pageOptions: [10],
         username: "",
         roomname: "",
         gametype: {
@@ -123,29 +131,8 @@
           })
         })
       },
-      createRoom() {
-        if (!localStorage.getItem(this.server.path)) {
-          this.setYgo();
-        } else {
-          let username = this.username;
-          if (username.trim() == "") {
-            this.$q.notify({
-              color: 'red',
-              icon: 'error',
-              message: this.$t("usernameMsg"),
-              position: "top",
-              timeout: 3000
-            })
-            return;
-          }
-          let roomname = this.gametype.value + this.roomname
-          let dir = localStorage.getItem(this.server.path)
-          let client = localStorage.getItem(this.server.program)
-          let ip = this.server.ip;
-          let port = this.server.port;
-          this.$ygo.joinGame(dir, client, ip, port, username, roomname);
-          localStorage.setItem("username", username);
-        }
+      isGamer(user) {
+        return user.pos < 4
       },
       joinGame(row) {
         if (!localStorage.getItem(this.server.path)) {
@@ -162,7 +149,7 @@
             })
             return;
           }
-          let roomname = row.roomname
+          let roomname = row == 'create' ? this.gametype.value + this.roomname : row.roomname
           let dir = localStorage.getItem(this.server.path)
           let client = localStorage.getItem(this.server.program)
           let ip = this.server.ip;

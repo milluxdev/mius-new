@@ -1,12 +1,12 @@
 <template>
   <div class="serve-info">
-    <Server name="serve7210" label="YGOPRO 7210"/>
+    <Server name="server222"  label="YGOPRO 222"/>
   </div>
 </template>
 <script>
 import Server from "../component/Server";
 export default {
-  name: "Serve7210",
+  name: "Server222",
   components: {
     Server
   }

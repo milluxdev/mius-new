@@ -35,7 +35,7 @@ function createWindow() {
     center: true, //是否居中
     resizable: true, //窗口是否可以改变尺寸
     show: false, //窗口创建的时候是否显示
-    frame: false,
+    frame: true,
     useContentSize: true,
     webPreferences: {
       webSecurity: false,
@@ -79,7 +79,7 @@ function winShowOrMinimize() {
 }
 
 const chineseMenu = Menu.buildFromTemplate([{
-  label: '显示/最小化窗口',
+  label: '显示/隐藏窗口',
   type: 'normal',
   click: winShowOrMinimize
 }, {
@@ -93,7 +93,7 @@ const chineseMenu = Menu.buildFromTemplate([{
   click: app.quit
 }]);
 const englishMenu = Menu.buildFromTemplate([{
-  label: 'Show or Minimize',
+  label: 'Show or Hide',
   type: 'normal',
   click: winShowOrMinimize
 }, {
@@ -155,8 +155,6 @@ if (isDevelopment) {
     })
   }
 }
-ipcMain.on('close', () => win.close());
-ipcMain.on('min', () => win.hide());
 ipcMain.on('changeLanguages', (event, message) => {
   if ('zh-hans' == message) {
     appTray.setContextMenu(chineseMenu);
