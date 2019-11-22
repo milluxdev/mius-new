@@ -13,6 +13,8 @@
         </q-select>
         <q-btn color="white" text-color="black" label="创建房间" class="server-from server-btn"
           @click="joinGame('create')" />
+        <q-btn color="white" text-color="black" label="下载软件" class="server-from server-btn"
+          @click="download" />
       </q-toolbar>
     </div>
     <div class="server-main">
@@ -51,7 +53,8 @@
   import {
     mapActions
   } from 'vuex';
-  import servers from "@/app/config/server";
+  import servers from "config/server";
+
   export default {
     name: "Server",
     props: ["name", "label"],
@@ -133,6 +136,16 @@
       },
       isGamer(user) {
         return user.pos < 4
+      },
+      download(){
+        this.$download.connect(function() {
+            this.$download.send({
+                method : 'aria2.addUri',
+                params : [['http://47.100.52.114/Mius-Setup.exe']]
+            }, function(result) {
+                console.log(result);
+            });
+        });
       },
       joinGame(row) {
         if (!localStorage.getItem(this.server.path)) {

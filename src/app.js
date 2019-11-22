@@ -136,7 +136,6 @@ app.on('activate', () => {
 app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
     console.log("Development")
-    console.log(__static)
   }
   createWindow()
   createTray()

@@ -1,4 +1,11 @@
-module.exports = {
+const path = require('path');
+module.exports = {lintOnSave: true,
+  chainWebpack: (config) => {
+    config.resolve.alias
+      .set('app',path.join(__dirname, 'src','app'))
+      .set('config',path.join(__dirname, 'src', 'app', 'config'))
+      .set('assets',path.join(__dirname, 'src', 'app', 'assets'))
+  },
   pluginOptions: {
     electronBuilder: {
       builderOptions: {
@@ -34,7 +41,14 @@ module.exports = {
           artifactName: "${name}.${ext}"
         },
         mac: {
-          icon: 'icons/icons/icon.icns'
+          icon: 'icons/icons/icon.icns',
+          extraResources: {
+            from: "./extra/darwin/",
+            to: "./download",
+            filter: [
+              "**/*"
+            ]
+          }
         },
         win: {
           icon: 'icons/icons/icon.ico',
@@ -45,7 +59,14 @@ module.exports = {
               "ia32"
             ]
           }],
-          artifactName: "${name}-Setup.${ext}"
+          artifactName: "${name}-Setup.${ext}",
+          extraResources: {
+            from: "./extra/win32/",
+            to: "./download",
+            filter: [
+              "**/*"
+            ]
+          }
         },
         nsis: {
           oneClick: false,
@@ -66,7 +87,14 @@ module.exports = {
           maintainer: 'Millux',
           category: 'Game',
           executableName: 'Mius',
-          artifactName: '${name}-${arch}.${ext}'
+          artifactName: '${name}-${arch}.${ext}',
+          extraResources: {
+            from: "./extra/linux/",
+            to: "./download",
+            filter: [
+              "**/*"
+            ]
+          }
         }
       },
       mainProcessFile: 'src/app.js',

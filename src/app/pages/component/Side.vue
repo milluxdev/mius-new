@@ -90,17 +90,17 @@
             <q-item-section>
               <q-btn-dropdown color="light-green" :label="$t('importYgoLabel')">
                 <q-list>
-                  <q-item clickable v-close-popup @click="settingYgo('serve7210')">
+                  <q-item clickable v-close-popup @click="settingYgo('server7210')">
                     <q-item-section>
                       <q-item-label>YGOPRO 7210</q-item-label>
                     </q-item-section>
                   </q-item>
-                  <q-item clickable v-close-popup @click="settingYgo('serve222')">
+                  <q-item clickable v-close-popup @click="settingYgo('server222')">
                     <q-item-section>
                       <q-item-label>YGOPRO 222</q-item-label>
                     </q-item-section>
                   </q-item>
-                  <q-item clickable v-close-popup @click="settingYgo('serve1311')">
+                  <q-item clickable v-close-popup @click="settingYgo('server1311')">
                     <q-item-section>
                       <q-item-label>YGOPRO 1311</q-item-label>
                     </q-item-section>
